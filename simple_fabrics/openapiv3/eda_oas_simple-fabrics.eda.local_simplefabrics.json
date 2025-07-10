@@ -17,20 +17,24 @@
       "description": "SimpleFabricSpec defines the desired state of SimpleFabric",
       "type": "object",
       "title": "Specification",
-      "required": [
-        "location",
-        "pod_number"
-      ],
       "properties": {
-        "location": {
-          "description": "Physical location of the DC POD this fabric is deployed to.",
+        "underlay_asn_pool": {
+          "description": "The ASN pool used for the underlay network.\nThe default value of `asn-pool` is the default ASN pool\nyou get with Try EDA installation.",
           "type": "string",
-          "title": "Location"
-        },
-        "pod_number": {
-          "description": "Number of the DC POD this fabric is deployed to.",
-          "type": "string",
-          "title": "Pod Number"
+          "title": "Underlay ASN Pool",
+          "default": "asn-pool",
+          "x-eda-nokia-com": {
+            "ui-category": "Underlay Network",
+            "ui-auto-completes": [
+              {
+                "condition": "true",
+                "type": "gvr",
+                "group": "core.eda.nokia.com",
+                "version": "v1",
+                "resource": "indexallocationpools"
+              }
+            ]
+          }
         }
       },
       "x-eda-nokia-com": {

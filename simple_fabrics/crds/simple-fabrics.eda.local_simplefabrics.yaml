@@ -39,16 +39,13 @@ spec:
           spec:
             description: SimpleFabricSpec defines the desired state of SimpleFabric
             properties:
-              location:
-                description: Physical location of the DC POD this fabric is deployed
-                  to.
+              underlay_asn_pool:
+                default: asn-pool
+                description: |-
+                  The ASN pool used for the underlay network.
+                  The default value of `asn-pool` is the default ASN pool
+                  you get with Try EDA installation.
                 type: string
-              pod_number:
-                description: Number of the DC POD this fabric is deployed to.
-                type: string
-            required:
-            - location
-            - pod_number
             type: object
           status:
             description: SimpleFabricStatus defines the observed state of SimpleFabric

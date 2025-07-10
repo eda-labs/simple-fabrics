@@ -22,12 +22,14 @@ import (
 
 // SimpleFabricSpec defines the desired state of SimpleFabric
 type SimpleFabricSpec struct {
-	// +eda:ui:title="Pod Number"
-	// Number of the DC POD this fabric is deployed to.
-	PodNumber string `json:"pod_number"`
-	// +eda:ui:title="Location"
-	// Physical location of the DC POD this fabric is deployed to.
-	Location string `json:"location"`
+	// +eda:ui:category="Underlay Network"
+	// +eda:ui:title="Underlay ASN Pool"
+	// +eda:ui:autocomplete=`{"group":"core.eda.nokia.com", "version":"v1", "resource":"indexallocationpools"}`
+	// +kubebuilder:default="asn-pool"
+	// The ASN pool used for the underlay network.
+	// The default value of `asn-pool` is the default ASN pool
+	// you get with Try EDA installation.
+	UnderlayASNPool string `json:"underlay_asn_pool,omitempty"`
 }
 
 // SimpleFabricStatus defines the observed state of SimpleFabric

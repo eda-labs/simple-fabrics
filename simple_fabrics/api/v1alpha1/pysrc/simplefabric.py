@@ -3,42 +3,34 @@
 # The change on this file will be overwritten by running edabuilder create or generate.
 import eda_common as eda
 
-from simple_fabrics.api.v1alpha1.pysrc.constants import Y_ITEMS, Y_METADATA, Y_SPEC, Y_STATUS
+from . import Metadata, Y_NAME
 
-from . import Y_NAME, Metadata
-
-Y_POD_NUMBER = "pod_number"
-Y_LOCATION = "location"
-Y_BAZ = "baz"
+from simple_fabrics.api.v1alpha1.pysrc.constants import *
+Y_UNDERLAY_ASN_POOL = 'underlay_asn_pool'
+Y_BAZ = 'baz'
 # Package objects (GVK Schemas)
-SIMPLEFABRIC_SCHEMA = eda.Schema(group="simple-fabrics.eda.local", version="v1alpha1", kind="SimpleFabric")
+SIMPLEFABRIC_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1alpha1', kind='SimpleFabric')
 
 
 class SimpleFabricSpec:
     def __init__(
         self,
-        pod_number: str,
-        location: str,
+        underlay_asn_pool: str,
     ):
-        self.pod_number = pod_number
-        self.location = location
+        self.underlay_asn_pool = underlay_asn_pool
 
     def to_input(self):  # pragma: no cover
         _rval = {}
-        if self.pod_number is not None:
-            _rval[Y_POD_NUMBER] = self.pod_number
-        if self.location is not None:
-            _rval[Y_LOCATION] = self.location
+        if self.underlay_asn_pool is not None:
+            _rval[Y_UNDERLAY_ASN_POOL] = self.underlay_asn_pool
         return _rval
 
     @staticmethod
-    def from_input(obj) -> "SimpleFabricSpec | None":
+    def from_input(obj) -> 'SimpleFabricSpec | None':
         if obj:
-            _pod_number = obj.get(Y_POD_NUMBER)
-            _location = obj.get(Y_LOCATION)
+            _underlay_asn_pool = obj.get(Y_UNDERLAY_ASN_POOL, "asn-pool")
             return SimpleFabricSpec(
-                pod_number=_pod_number,
-                location=_location,
+                underlay_asn_pool=_underlay_asn_pool,
             )
         return None  # pragma: no cover
 
@@ -57,7 +49,7 @@ class SimpleFabricStatus:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> "SimpleFabricStatus | None":
+    def from_input(obj) -> 'SimpleFabricStatus | None':
         if obj:
             _baz = obj.get(Y_BAZ)
             return SimpleFabricStatus(
@@ -67,7 +59,12 @@ class SimpleFabricStatus:
 
 
 class SimpleFabric:
-    def __init__(self, metadata: Metadata, spec: SimpleFabricSpec, status: SimpleFabricStatus):
+    def __init__(
+        self,
+        metadata: Metadata,
+        spec: SimpleFabricSpec,
+        status: SimpleFabricStatus
+    ):
         self.metadata = metadata
         self.spec = spec
         self.status = status
@@ -83,7 +80,7 @@ class SimpleFabric:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> "SimpleFabric | None":
+    def from_input(obj) -> 'SimpleFabric | None':
         if obj:
             _metadata = (
                 Metadata.from_input(obj.get(Y_METADATA))
@@ -101,7 +98,11 @@ class SimpleFabric:
 
 
 class SimpleFabricList:
-    def __init__(self, listMeta: object, items: list[SimpleFabric]):
+    def __init__(
+        self,
+        listMeta: object,
+        items: list[SimpleFabric]
+    ):
         self.listMeta = listMeta
         self.items = items
 
@@ -114,7 +115,7 @@ class SimpleFabricList:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> "SimpleFabricList | None":
+    def from_input(obj) -> 'SimpleFabricList | None':
         if obj:
             _listMeta = obj.get(Y_METADATA, None)
             _items = obj.get(Y_ITEMS, [])

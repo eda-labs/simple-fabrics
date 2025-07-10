@@ -21,6 +21,6 @@ class EDAConfigHandler:
         }
         eda.update_cr(
             schema=s.FABRIC_SCHEMA,
-            name=f"{sf.metadata.name}-{sf.spec.location}-{sf.spec.pod_number}",
+            name=f"{sf.metadata.name}",
             spec=fabric_spec,
         )
