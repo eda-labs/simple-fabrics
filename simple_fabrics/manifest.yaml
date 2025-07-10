@@ -18,10 +18,10 @@ spec:
         path: simple_fabrics/intents
   description: Sample description
   group: simple-fabrics.eda.local
-  image: change.me/simple-fabrics:v0.0.0
+  image: ghcr.io/hellt/test/simple-fabrics:v0.0.0
   supportedCoreVersions:
     - v2.0.0-0
-  title: simple-fabrics
+  title: Simple Fabrics
   version: v1alpha1
   components:
     - crd:
