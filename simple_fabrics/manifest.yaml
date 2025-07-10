@@ -1,0 +1,39 @@
+apiVersion: core.eda.nokia.com/v1
+kind: Manifest
+metadata:
+  name: simple-fabrics
+spec:
+  appInfo:
+    categories:
+      - networking
+  author: eda-labs
+  dependencies:
+    - file:
+        path: utils
+    - file:
+        path: common
+    - file:
+        path: simple_fabrics/api/v1alpha1/pysrc
+    - file:
+        path: simple_fabrics/intents
+  description: Sample description
+  group: simple-fabrics.eda.local
+  image: change.me/simple-fabrics:v0.0.0
+  supportedCoreVersions:
+    - v2.0.0-0
+  title: simple-fabrics
+  version: v1alpha1
+  components:
+    - crd:
+        api:
+          expose: readWrite
+        path: simple_fabrics/crds/simple-fabrics.eda.local_simplefabrics.yaml
+        schema: simple_fabrics/openapiv3/eda_oas_simple-fabrics.eda.local_simplefabrics.json
+        ui:
+          category: Fabrics
+          name: Simple Fabrics
+    - script:
+        path: simple_fabrics/intents/simplefabric/config_intent.py
+        trigger:
+          kind: SimpleFabric
+        type: config

@@ -1,0 +1,7 @@
+apiVersion: simple-fabrics.eda.local/v1alpha1
+kind: SimpleFabric
+metadata:
+  name: "test"
+  namespace: "eda"
+spec:
+  foo: ""
