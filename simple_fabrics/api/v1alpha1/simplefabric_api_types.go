@@ -16,10 +16,6 @@ limitations under the License.
 
 package v1alpha1
 
-import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
-
 // SimpleFabricSpec defines the desired state of SimpleFabric
 type SimpleFabricSpec struct {
 	// +eda:ui:category="Underlay Network"
@@ -35,28 +31,4 @@ type SimpleFabricSpec struct {
 // SimpleFabricStatus defines the observed state of SimpleFabric
 type SimpleFabricStatus struct {
 	Baz string `json:"baz,omitempty"`
-}
-
-// SimpleFabric is the Schema for the simplefabrics API
-// +kubebuilder:object:root=true
-// +kubebuilder:subresource:status
-// +kubebuilder:resource:path=simplefabrics,scope=Namespaced
-type SimpleFabric struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-
-	Spec   SimpleFabricSpec   `json:"spec,omitempty"`
-	Status SimpleFabricStatus `json:"status,omitempty"`
-}
-
-// SimpleFabricList contains a list of SimpleFabric
-// +kubebuilder:object:root=true
-type SimpleFabricList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []SimpleFabric `json:"items"`
-}
-
-func init() {
-	SchemeBuilder.Register(&SimpleFabric{}, &SimpleFabricList{})
 }

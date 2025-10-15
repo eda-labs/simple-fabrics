@@ -6,36 +6,36 @@ import eda_common as eda
 from . import Metadata, Y_NAME
 
 from simple_fabrics.api.v1alpha1.pysrc.constants import *
-Y_UNDERLAY_ASN_POOL = 'underlay_asn_pool'
+Y_FOO = 'foo'
 Y_BAZ = 'baz'
 # Package objects (GVK Schemas)
-SIMPLEFABRIC_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1alpha1', kind='SimpleFabric')
+TEST_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1alpha1', kind='Test')
 
 
-class SimpleFabricSpec:
+class TestSpec:
     def __init__(
         self,
-        underlay_asn_pool: str | None = None,
+        foo: str,
     ):
-        self.underlay_asn_pool = underlay_asn_pool
+        self.foo = foo
 
     def to_input(self):  # pragma: no cover
         _rval = {}
-        if self.underlay_asn_pool is not None:
-            _rval[Y_UNDERLAY_ASN_POOL] = self.underlay_asn_pool
+        if self.foo is not None:
+            _rval[Y_FOO] = self.foo
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabricSpec | None':
+    def from_input(obj) -> 'TestSpec | None':
         if obj:
-            _underlay_asn_pool = obj.get(Y_UNDERLAY_ASN_POOL, "asn-pool")
-            return SimpleFabricSpec(
-                underlay_asn_pool=_underlay_asn_pool,
+            _foo = obj.get(Y_FOO)
+            return TestSpec(
+                foo=_foo,
             )
         return None  # pragma: no cover
 
 
-class SimpleFabricStatus:
+class TestStatus:
     def __init__(
         self,
         baz: str | None = None,
@@ -49,21 +49,21 @@ class SimpleFabricStatus:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabricStatus | None':
+    def from_input(obj) -> 'TestStatus | None':
         if obj:
             _baz = obj.get(Y_BAZ)
-            return SimpleFabricStatus(
+            return TestStatus(
                 baz=_baz,
             )
         return None  # pragma: no cover
 
 
-class SimpleFabric:
+class Test:
     def __init__(
         self,
         metadata: Metadata | None = None,
-        spec: SimpleFabricSpec | None = None,
-        status: SimpleFabricStatus | None = None
+        spec: TestSpec | None = None,
+        status: TestStatus | None = None
     ):
         self.metadata = metadata
         self.spec = spec
@@ -80,16 +80,16 @@ class SimpleFabric:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabric | None':
+    def from_input(obj) -> 'Test | None':
         if obj:
             _metadata = (
                 Metadata.from_input(obj.get(Y_METADATA))
                 if obj.get(Y_METADATA, None)
                 else Metadata.from_name(obj.get(Y_NAME))
             )
-            _spec = SimpleFabricSpec.from_input(obj.get(Y_SPEC, None))
-            _status = SimpleFabricStatus.from_input(obj.get(Y_STATUS))
-            return SimpleFabric(
+            _spec = TestSpec.from_input(obj.get(Y_SPEC, None))
+            _status = TestStatus.from_input(obj.get(Y_STATUS))
+            return Test(
                 metadata=_metadata,
                 spec=_spec,
                 status=_status,
@@ -97,10 +97,10 @@ class SimpleFabric:
         return None  # pragma: no cover
 
 
-class SimpleFabricList:
+class TestList:
     def __init__(
         self,
-        items: list[SimpleFabric],
+        items: list[Test],
         listMeta: object | None = None
     ):
         self.items = items
@@ -115,11 +115,11 @@ class SimpleFabricList:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabricList | None':
+    def from_input(obj) -> 'TestList | None':
         if obj:
             _items = obj.get(Y_ITEMS, [])
             _listMeta = obj.get(Y_METADATA, None)
-            return SimpleFabricList(
+            return TestList(
                 items=_items,
                 listMeta=_listMeta,
             )
