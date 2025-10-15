@@ -21,6 +21,9 @@ spec:
   image: ghcr.io/hellt/test/simple-fabrics:v0.0.0
   supportedCoreVersions:
     - v3.0.0-0
+  supportedEndpoints:
+    - "srl:0.0.0"
+    - "srl:25.*.*"
   title: Simple Fabrics
   version: v1alpha1
   components:
@@ -37,3 +40,7 @@ spec:
         trigger:
           kind: SimpleFabric
         type: config
+  requirements:
+    - appName: fabrics
+      vendor: nokia
+      version: v4.0.*
