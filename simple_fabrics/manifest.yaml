@@ -20,7 +20,7 @@ spec:
   group: simple-fabrics.eda.local
   image: ghcr.io/hellt/test/simple-fabrics:v0.0.0
   supportedCoreVersions:
-    - v2.0.0-0
+    - v3.0.0-0
   title: Simple Fabrics
   version: v1alpha1
   components:
