@@ -4,6 +4,11 @@ import eda_common as eda
 
 import simple_fabrics.deps.fabrics_eda_nokia_com.v4_0_1.api.v1alpha1.pysrc.fabric as fabric
 from simple_fabrics.api.v1alpha1.pysrc.simplefabric import SimpleFabric
+from simple_fabrics.api.v1alpha1.pysrc.simplefabricstate import (
+    SIMPLEFABRICSTATE_SCHEMA,
+    SimpleFabricState,
+    SimpleFabricStateSpec,
+)
 
 
 class EDAConfigHandler:
@@ -38,3 +43,7 @@ class EDAConfigHandler:
         )
 
         eda.update_cr(schema=fabric.FABRIC_SCHEMA, **_fabric.to_input())
+
+        state_cr = SimpleFabricState(spec=SimpleFabricStateSpec(fabricName=fabricName))
+
+        eda.update_cr(schema=SIMPLEFABRICSTATE_SCHEMA, name=sf.metadata.name, **state_cr.to_input())

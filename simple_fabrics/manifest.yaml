@@ -42,6 +42,14 @@ spec:
         trigger:
           kind: SimpleFabric
         type: config
+    - crd:
+        path: simple_fabrics/crds/simple-fabrics.eda.local_simplefabricstates.yaml
+        schema: simple_fabrics/openapiv3/eda_oas_simple-fabrics.eda.local_simplefabricstates.json
+    - script:
+        path: simple_fabrics/intents/simplefabricstate/state_intent.py
+        trigger:
+          kind: SimpleFabricState
+        type: state
   requirements:
     - appName: fabrics
       vendor: nokia

@@ -35,6 +35,10 @@ type SimpleFabricSpec struct {
 
 // SimpleFabricStatus defines the observed state of SimpleFabric
 type SimpleFabricStatus struct {
+	// +eda:ui:title="Underlying Fabric Name"
 	// The name of the backing Fabric that the Simple Fabric created.
 	FabricName string `json:"fabricName,omitempty"`
+	// Operational state of the Simple Fabric uses the operational state
+	// of the backing fabric.
+	OperationalState string `json:"operationalState,omitempty"`
 }

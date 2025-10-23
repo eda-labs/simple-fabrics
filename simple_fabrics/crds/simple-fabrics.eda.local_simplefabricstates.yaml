@@ -1,0 +1,56 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.19.0
+  name: simplefabricstates.simple-fabrics.eda.local
+spec:
+  group: simple-fabrics.eda.local
+  names:
+    kind: SimpleFabricState
+    listKind: SimpleFabricStateList
+    plural: simplefabricstates
+    singular: simplefabricstate
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: SimpleFabricState is the Schema for the simplefabricstates API
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SimpleFabricStateSpec defines the desired state of SimpleFabricState
+            properties:
+              fabricName:
+                description: FabricName is the name of the backing fabric that SimpleFabric
+                  uses
+                type: string
+            required:
+            - fabricName
+            type: object
+          status:
+            description: SimpleFabricStateStatus defines the observed state of SimpleFabricState
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

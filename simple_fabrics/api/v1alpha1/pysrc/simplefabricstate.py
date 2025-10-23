@@ -6,71 +6,58 @@ import eda_common as eda
 from . import Metadata, Y_NAME
 
 from simple_fabrics.api.v1alpha1.pysrc.constants import *
-Y_UNDERLAYASNPOOL = 'underlayASNPool'
 Y_FABRICNAME = 'fabricName'
-Y_OPERATIONALSTATE = 'operationalState'
 # Package objects (GVK Schemas)
-SIMPLEFABRIC_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1alpha1', kind='SimpleFabric')
+SIMPLEFABRICSTATE_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1alpha1', kind='SimpleFabricState')
 
 
-class SimpleFabricSpec:
+class SimpleFabricStateSpec:
     def __init__(
         self,
-        underlayASNPool: str,
-    ):
-        self.underlayASNPool = underlayASNPool
-
-    def to_input(self):  # pragma: no cover
-        _rval = {}
-        if self.underlayASNPool is not None:
-            _rval[Y_UNDERLAYASNPOOL] = self.underlayASNPool
-        return _rval
-
-    @staticmethod
-    def from_input(obj) -> 'SimpleFabricSpec | None':
-        if obj:
-            _underlayASNPool = obj.get(Y_UNDERLAYASNPOOL, "asn-pool")
-            return SimpleFabricSpec(
-                underlayASNPool=_underlayASNPool,
-            )
-        return None  # pragma: no cover
-
-
-class SimpleFabricStatus:
-    def __init__(
-        self,
-        fabricName: str | None = None,
-        operationalState: str | None = None,
+        fabricName: str,
     ):
         self.fabricName = fabricName
-        self.operationalState = operationalState
 
     def to_input(self):  # pragma: no cover
         _rval = {}
         if self.fabricName is not None:
             _rval[Y_FABRICNAME] = self.fabricName
-        if self.operationalState is not None:
-            _rval[Y_OPERATIONALSTATE] = self.operationalState
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabricStatus | None':
+    def from_input(obj) -> 'SimpleFabricStateSpec | None':
         if obj:
             _fabricName = obj.get(Y_FABRICNAME)
-            _operationalState = obj.get(Y_OPERATIONALSTATE)
-            return SimpleFabricStatus(
+            return SimpleFabricStateSpec(
                 fabricName=_fabricName,
-                operationalState=_operationalState,
             )
         return None  # pragma: no cover
 
 
-class SimpleFabric:
+class SimpleFabricStateStatus:
+    def __init__(
+        self,
+    ):
+        pass
+
+    def to_input(self):  # pragma: no cover
+        _rval = {}
+        return _rval
+
+    @staticmethod
+    def from_input(obj) -> 'SimpleFabricStateStatus | None':
+        if obj:
+            return SimpleFabricStateStatus(
+            )
+        return None  # pragma: no cover
+
+
+class SimpleFabricState:
     def __init__(
         self,
         metadata: Metadata | None = None,
-        spec: SimpleFabricSpec | None = None,
-        status: SimpleFabricStatus | None = None
+        spec: SimpleFabricStateSpec | None = None,
+        status: SimpleFabricStateStatus | None = None
     ):
         self.metadata = metadata
         self.spec = spec
@@ -87,16 +74,16 @@ class SimpleFabric:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabric | None':
+    def from_input(obj) -> 'SimpleFabricState | None':
         if obj:
             _metadata = (
                 Metadata.from_input(obj.get(Y_METADATA))
                 if obj.get(Y_METADATA, None)
                 else Metadata.from_name(obj.get(Y_NAME))
             )
-            _spec = SimpleFabricSpec.from_input(obj.get(Y_SPEC, None))
-            _status = SimpleFabricStatus.from_input(obj.get(Y_STATUS))
-            return SimpleFabric(
+            _spec = SimpleFabricStateSpec.from_input(obj.get(Y_SPEC, None))
+            _status = SimpleFabricStateStatus.from_input(obj.get(Y_STATUS))
+            return SimpleFabricState(
                 metadata=_metadata,
                 spec=_spec,
                 status=_status,
@@ -104,10 +91,10 @@ class SimpleFabric:
         return None  # pragma: no cover
 
 
-class SimpleFabricList:
+class SimpleFabricStateList:
     def __init__(
         self,
-        items: list[SimpleFabric],
+        items: list[SimpleFabricState],
         listMeta: object | None = None
     ):
         self.items = items
@@ -122,11 +109,11 @@ class SimpleFabricList:
         return _rval
 
     @staticmethod
-    def from_input(obj) -> 'SimpleFabricList | None':
+    def from_input(obj) -> 'SimpleFabricStateList | None':
         if obj:
             _items = obj.get(Y_ITEMS, [])
             _listMeta = obj.get(Y_METADATA, None)
-            return SimpleFabricList(
+            return SimpleFabricStateList(
                 items=_items,
                 listMeta=_listMeta,
             )
