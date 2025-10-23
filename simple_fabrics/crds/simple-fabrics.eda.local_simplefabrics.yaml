@@ -37,22 +37,35 @@ spec:
           metadata:
             type: object
           spec:
-            description: SimpleFabricSpec defines the desired state of SimpleFabric
+            description: |-
+              This app demonstrates how developers
+              can build abstractions using the existing resources.
+              The Simple Fabric application configures the EVPN VXLAN fabric
+              with a simplified set of inputs when compared to the Fabrics app.
+              It assumes the default values for the node selectors, protocol configuration, etc,
+              while exposing a minimal set of parameters to a user.
             properties:
-              underlay_asn_pool:
+              underlayASNPool:
                 default: asn-pool
                 description: |-
                   The ASN pool used for the underlay network.
-                  The default value of `asn-pool` is the default ASN pool
-                  you get with Try EDA installation.
+                  The `asn-pool` default value is the default ASN pool
+                  that comes with "Try EDA" installation.
                 type: string
+            required:
+            - underlayASNPool
             type: object
           status:
             description: SimpleFabricStatus defines the observed state of SimpleFabric
             properties:
-              baz:
+              fabricName:
+                description: The name of the backing Fabric that the Simple Fabric
+                  created.
                 type: string
             type: object
+        required:
+        - metadata
+        - spec
         type: object
     served: true
     storage: true

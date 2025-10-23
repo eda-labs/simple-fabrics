@@ -1,26 +1,40 @@
 #!/usr/bin/env python3
-import json
 
 import eda_common as eda
-import eda_config as ecfg
 
-import utils.schema as s
-from common.metadata import Y_METADATA, Y_NAME
+import simple_fabrics.deps.fabrics_eda_nokia_com.v4_0_1.api.v1alpha1.pysrc.fabric as fabric
 from simple_fabrics.api.v1alpha1.pysrc.simplefabric import SimpleFabric
 
 
 class EDAConfigHandler:
     def handle_cr(self, sf: SimpleFabric):
-        fabric_spec = {
-            "interSwitchLinks": {"linkSelector": ["eda.nokia.com/role=interSwitch"], "unnumbered": "IPV6"},
-            "leafs": {"leafNodeSelector": ["eda.nokia.com/role=leaf"]},
-            "overlayProtocol": {"protocol": "EBGP"},
-            "spines": {"spineNodeSelector": ["eda.nokia.com/role=spine"]},
-            "systemPoolIPV4": "systemipv4-pool",
-            "underlayProtocol": {"bgp": {"asnPool": "asn-pool"}, "protocol": ["EBGP"]},
-        }
-        eda.update_cr(
-            schema=s.FABRIC_SCHEMA,
-            name=f"{sf.metadata.name}",
-            spec=fabric_spec,
+        fabricName = f"sf-{sf.metadata.name}"
+
+        _fabric = fabric.Fabric(
+            metadata=fabric.Metadata(
+                name=fabricName,
+                namespace=sf.metadata.namespace,
+            ),
+            spec=fabric.FabricSpec(
+                leafs=fabric.Leafs(
+                    leafNodeSelector=["eda.nokia.com/role=leaf"],
+                ),
+                spines=fabric.Spines(
+                    spineNodeSelector=["eda.nokia.com/role=spine"],
+                ),
+                interSwitchLinks=fabric.InterSwitchLinks(
+                    linkSelector=["eda.nokia.com/role=interSwitch"],
+                    unnumbered="IPV6",
+                ),
+                systemPoolIPV4="systemipv4-pool",
+                underlayProtocol=fabric.UnderlayProtocol(
+                    bgp=fabric.UnderlayBGP(asnPool=sf.spec.underlayASNPool),
+                    protocol=["EBGP"],
+                ),
+                overlayProtocol=fabric.OverlayProtocol(
+                    protocol="EBGP",
+                ),
+            ),
         )
+
+        eda.update_cr(schema=fabric.FABRIC_SCHEMA, **_fabric.to_input())

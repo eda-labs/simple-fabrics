@@ -26,9 +26,9 @@ import (
 // +kubebuilder:resource:path=simplefabrics,scope=Namespaced
 type SimpleFabric struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
+	metav1.ObjectMeta `json:"metadata"`
 
-	Spec   SimpleFabricSpec   `json:"spec,omitempty"`
+	Spec   SimpleFabricSpec   `json:"spec"`
 	Status SimpleFabricStatus `json:"status,omitempty"`
 }
 

@@ -1,6 +1,10 @@
 {
   "description": "SimpleFabric is the Schema for the simplefabrics API",
   "type": "object",
+  "required": [
+    "metadata",
+    "spec"
+  ],
   "properties": {
     "apiVersion": {
       "description": "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
@@ -14,12 +18,15 @@
       "type": "object"
     },
     "spec": {
-      "description": "SimpleFabricSpec defines the desired state of SimpleFabric",
+      "description": "This app demonstrates how developers\ncan build abstractions using the existing resources.\nThe Simple Fabric application configures the EVPN VXLAN fabric\nwith a simplified set of inputs when compared to the Fabrics app.\nIt assumes the default values for the node selectors, protocol configuration, etc,\nwhile exposing a minimal set of parameters to a user.",
       "type": "object",
       "title": "Specification",
+      "required": [
+        "underlayASNPool"
+      ],
       "properties": {
-        "underlay_asn_pool": {
-          "description": "The ASN pool used for the underlay network.\nThe default value of `asn-pool` is the default ASN pool\nyou get with Try EDA installation.",
+        "underlayASNPool": {
+          "description": "The ASN pool used for the underlay network.\nThe `asn-pool` default value is the default ASN pool\nthat comes with \"Try EDA\" installation.",
           "type": "string",
           "title": "Underlay ASN Pool",
           "default": "asn-pool",
@@ -46,7 +53,8 @@
       "type": "object",
       "title": "Status",
       "properties": {
-        "baz": {
+        "fabricName": {
+          "description": "The name of the backing Fabric that the Simple Fabric created.",
           "type": "string"
         }
       },

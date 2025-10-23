@@ -16,19 +16,25 @@ limitations under the License.
 
 package v1alpha1
 
-// SimpleFabricSpec defines the desired state of SimpleFabric
+// This app demonstrates how developers
+// can build abstractions using the existing resources.
+// The Simple Fabric application configures the EVPN VXLAN fabric
+// with a simplified set of inputs when compared to the Fabrics app.
+// It assumes the default values for the node selectors, protocol configuration, etc,
+// while exposing a minimal set of parameters to a user.
 type SimpleFabricSpec struct {
 	// +eda:ui:category="Underlay Network"
 	// +eda:ui:title="Underlay ASN Pool"
 	// +eda:ui:autocomplete=`{"group":"core.eda.nokia.com", "version":"v1", "resource":"indexallocationpools"}`
 	// +kubebuilder:default="asn-pool"
 	// The ASN pool used for the underlay network.
-	// The default value of `asn-pool` is the default ASN pool
-	// you get with Try EDA installation.
-	UnderlayASNPool string `json:"underlay_asn_pool,omitempty"`
+	// The `asn-pool` default value is the default ASN pool
+	// that comes with "Try EDA" installation.
+	UnderlayASNPool string `json:"underlayASNPool"`
 }
 
 // SimpleFabricStatus defines the observed state of SimpleFabric
 type SimpleFabricStatus struct {
-	Baz string `json:"baz,omitempty"`
+	// The name of the backing Fabric that the Simple Fabric created.
+	FabricName string `json:"fabricName,omitempty"`
 }

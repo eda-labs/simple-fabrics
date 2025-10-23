@@ -6,8 +6,8 @@ import eda_common as eda
 from . import Metadata, Y_NAME
 
 from simple_fabrics.api.v1alpha1.pysrc.constants import *
-Y_UNDERLAY_ASN_POOL = 'underlay_asn_pool'
-Y_BAZ = 'baz'
+Y_UNDERLAYASNPOOL = 'underlayASNPool'
+Y_FABRICNAME = 'fabricName'
 # Package objects (GVK Schemas)
 SIMPLEFABRIC_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1alpha1', kind='SimpleFabric')
 
@@ -15,22 +15,22 @@ SIMPLEFABRIC_SCHEMA = eda.Schema(group='simple-fabrics.eda.local', version='v1al
 class SimpleFabricSpec:
     def __init__(
         self,
-        underlay_asn_pool: str | None = None,
+        underlayASNPool: str,
     ):
-        self.underlay_asn_pool = underlay_asn_pool
+        self.underlayASNPool = underlayASNPool
 
     def to_input(self):  # pragma: no cover
         _rval = {}
-        if self.underlay_asn_pool is not None:
-            _rval[Y_UNDERLAY_ASN_POOL] = self.underlay_asn_pool
+        if self.underlayASNPool is not None:
+            _rval[Y_UNDERLAYASNPOOL] = self.underlayASNPool
         return _rval
 
     @staticmethod
     def from_input(obj) -> 'SimpleFabricSpec | None':
         if obj:
-            _underlay_asn_pool = obj.get(Y_UNDERLAY_ASN_POOL, "asn-pool")
+            _underlayASNPool = obj.get(Y_UNDERLAYASNPOOL, "asn-pool")
             return SimpleFabricSpec(
-                underlay_asn_pool=_underlay_asn_pool,
+                underlayASNPool=_underlayASNPool,
             )
         return None  # pragma: no cover
 
@@ -38,22 +38,22 @@ class SimpleFabricSpec:
 class SimpleFabricStatus:
     def __init__(
         self,
-        baz: str | None = None,
+        fabricName: str | None = None,
     ):
-        self.baz = baz
+        self.fabricName = fabricName
 
     def to_input(self):  # pragma: no cover
         _rval = {}
-        if self.baz is not None:
-            _rval[Y_BAZ] = self.baz
+        if self.fabricName is not None:
+            _rval[Y_FABRICNAME] = self.fabricName
         return _rval
 
     @staticmethod
     def from_input(obj) -> 'SimpleFabricStatus | None':
         if obj:
-            _baz = obj.get(Y_BAZ)
+            _fabricName = obj.get(Y_FABRICNAME)
             return SimpleFabricStatus(
-                baz=_baz,
+                fabricName=_fabricName,
             )
         return None  # pragma: no cover
 
