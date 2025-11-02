@@ -13,6 +13,9 @@ from simple_fabrics.api.v1alpha1.pysrc.simplefabricstate import (
 
 class EDAConfigHandler:
     def handle_cr(self, sf: SimpleFabric):
+        assert sf.metadata is not None
+        assert sf.spec is not None
+
         fabricName = f"sf-{sf.metadata.name}"
 
         _fabric = fabric.Fabric(

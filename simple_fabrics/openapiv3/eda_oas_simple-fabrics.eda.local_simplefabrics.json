@@ -56,11 +56,12 @@
         "fabricName": {
           "description": "The name of the backing Fabric that the Simple Fabric created.",
           "type": "string",
-          "title": "Underlying Fabric Name"
+          "title": "Derived Fabric Name"
         },
         "operationalState": {
           "description": "Operational state of the Simple Fabric uses the operational state\nof the backing fabric.",
-          "type": "string"
+          "type": "string",
+          "title": "Operational State"
         }
       },
       "readOnly": true,
